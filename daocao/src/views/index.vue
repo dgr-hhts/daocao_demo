@@ -1,9 +1,15 @@
 <template>
-  <el-container class="layout-container-demo" style="height: 500px">
+  <el-container class="layout-container-demo">
     <el-aside width="200px">
       <el-scrollbar>
+        <div class="block">
+          <img src='../assets/daocao_logo.png' width="200px"  />
+        </div>
       <el-menu
+        active-text-color="#ffd04b"
+        background-color="#545c64"
         class="el-menu-vertical-demo"
+        text-color="#fff"
         :router="true"
       >
       <el-menu-item index="/indexpage/indexpage">
@@ -26,19 +32,19 @@
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
         <div class="toolbar">
-          <el-dropdown>
-            <el-icon style="margin-right: 8px; margin-top: 1px">
-              <setting />
-            </el-icon>
+          <el-dropdown @command="HeaferCommand">
+            <div style="margin-right: 10px">
+              <el-avatar shape="square" :size="50" :src="circleUrl" />
+            </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>View</el-dropdown-item>
-                <el-dropdown-item>Add</el-dropdown-item>
-                <el-dropdown-item>Delete</el-dropdown-item>
+                <el-dropdown-item command="updatepwd">修改密码</el-dropdown-item>
+                <el-dropdown-item command="info">基本信息</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <span>Tom</span>
+          <span style="margin-right: 20px;font-size: 15px">{{userinfoStore.info.nickname}}欢迎您！</span>
+          <el-icon size="20" @click="loginoutfunc"><SwitchButton /></el-icon><span>退出</span>
         </div>
       </el-header>
 
@@ -52,36 +58,70 @@
   </el-container>
 </template>
 
-<script>
+<script setup>
 import router from '@/router/index'
+import { ref } from 'vue'
 
-export default{
-    data(){
-        return {
-        tableData:[
-            {
-                date: '2016-05-02',
-                name: 'Tom',
-                address: 'No. 189, Grove St, Los Angeles',
-            }
-        ]
+const username = ref('')
+import useUserinfoStore from '@/stores/userinfo'
+import { userinfo } from '@/api/user/user'
+const userinfoStore = useUserinfoStore()
+const info = async() =>{
+      await userinfo().then(res=>{
+        if(res.code == 200){
+          userinfoStore.setInfo(res.data)
         }
-    },
-    methods:{
-        
-    }
+      })
 }
+info()
+
+import { ElMessage, ElMessageBox } from 'element-plus'
+import useTokenStore from '@/stores/token'
+const usertoken = useTokenStore()
+const loginoutfunc = () =>{
+  ElMessageBox.confirm(
+      '您确定要退出登录吗?',
+      '提示',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  )
+      .then(() => {
+        usertoken.removeToken()
+        router.push('/login')
+        ElMessage({
+          type: 'success',
+          message: '退出登录成功！',
+        })
+      })
+      .catch(() => {
+        ElMessage({
+          type: 'info',
+          message: '取消退出登录!',
+        })
+      })
+}
+
+const HeaferCommand = (command) => {
+  router.push('/user/'+command)
+}
+
 </script>
 
 <style scoped>
+.layout-container-demo{
+  height: 100vh;
+}
 .layout-container-demo .el-header {
   position: relative;
-  background-color: var(--el-color-primary-light-7);
+  background-color: #f3f2fa;
   color: var(--el-text-color-primary);
 }
 .layout-container-demo .el-aside {
   color: var(--el-text-color-primary);
-  background: var(--el-color-primary-light-8);
+  background:#545c64;
 }
 .layout-container-demo .el-menu {
   border-right: none;

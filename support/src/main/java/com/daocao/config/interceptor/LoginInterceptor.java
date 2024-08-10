@@ -1,6 +1,7 @@
 package com.daocao.config.interceptor;
 
 import com.daocao.unils.JwtUtil;
+import com.daocao.unils.ThreadLocalUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,10 +17,16 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = request.getHeader("Authorization");
         try{
             Map<String, Object> claims = JwtUtil.getClaims(token);
+            ThreadLocalUtil.set(claims);
             return true;
         } catch(Exception e){
             response.setStatus(401);
             return false;
         }
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        ThreadLocalUtil.remove();
     }
 }

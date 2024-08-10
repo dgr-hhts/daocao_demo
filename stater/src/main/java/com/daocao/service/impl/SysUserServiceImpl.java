@@ -8,6 +8,7 @@ import com.daocao.respose.ConResult;
 import com.daocao.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.daocao.unils.JwtUtil;
+import com.daocao.unils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +59,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
             return new ConResult(false,"查询失败!");
         }
         return new ConResult(true,"查询成功!",sysUsers);
+    }
+
+    @Override
+    public ConResult UserInfo() {
+        Map<String,Object> map = ThreadLocalUtil.get();
+        String username = (String)map.get("username");
+        LambdaQueryWrapper<SysUser> query = new LambdaQueryWrapper<>();
+        query.eq(SysUser::getUsername,username);
+        SysUser sysUser = sysUserDao.selectOne(query);
+        return new ConResult(true,"查询成功!",sysUser);
     }
 }

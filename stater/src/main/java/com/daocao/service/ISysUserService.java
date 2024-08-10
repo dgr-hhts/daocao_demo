@@ -18,4 +18,6 @@ public interface ISysUserService extends IService<SysUser> {
     ConResult Login(LoginDto loginDto);
 
     ConResult UserList();
+
+    ConResult UserInfo();
 }

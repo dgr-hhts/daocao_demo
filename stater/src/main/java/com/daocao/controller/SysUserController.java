@@ -26,9 +26,19 @@ public class SysUserController {
 
     @Autowired
     private SysUserServiceImpl sysUserService;
+
     @GetMapping("/userlist")
     public Result userList(){
         ConResult conResult = sysUserService.UserList();
+        if(!conResult.getIsOk()){
+            return new Result(201,conResult.getMsg());
+        }
+        return new Result(200,conResult.getMsg(),conResult.getData());
+    }
+
+    @GetMapping("/userinfo")
+    public Result userinfo(){
+        ConResult conResult = sysUserService.UserInfo();
         if(!conResult.getIsOk()){
             return new Result(201,conResult.getMsg());
         }
