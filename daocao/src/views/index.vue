@@ -11,30 +11,37 @@
         class="el-menu-vertical-demo"
         text-color="#fff"
         :router="true"
+        @select="menuselect"
       >
-      <el-menu-item index="/indexpage/indexpage">
-          <el-icon><House /></el-icon>
-          <span>首页</span>
-        </el-menu-item>
-        <el-sub-menu index="1">
+      <div v-for="(value,index) in menu" :key="index">
+          <el-menu-item v-if="value.children.length == 0" :index="value.index">
+            <el-icon><component :is="value.icon" /></el-icon>
+            <span>{{value.item}}</span>
+          </el-menu-item>
+          <el-sub-menu v-else :index="value.index">
           <template #title>
-            <el-icon><location /></el-icon>
-            <span>个人中心</span>
+            <el-icon><component :is="value.icon" /></el-icon>
+            <span>{{value.item}}</span>
           </template>
-            <el-menu-item index="/user/updatepwd">修改密码</el-menu-item>
-            <el-menu-item index="/user/info">基本信息</el-menu-item>
+          <div v-for="(val,index) in value.children" :key="index">
+              <el-menu-item :index="val.index">
+                <el-icon><component :is="val.icon" /></el-icon>
+                <span>{{val.item}}</span>
+              </el-menu-item>
+          </div>
         </el-sub-menu>
-        
+      </div>
       </el-menu>
       </el-scrollbar>
     </el-aside>
 
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
+        <span style="float: left;font-size: 20px;margin-top: 15px;">{{menuname}}</span>
         <div class="toolbar">
           <el-dropdown @command="HeaferCommand">
             <div style="margin-right: 10px">
-              <el-avatar shape="square" :size="50" :src="circleUrl" />
+              <el-avatar shape="square" :size="50" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
             </div>
             <template #dropdown>
               <el-dropdown-menu>
@@ -61,6 +68,51 @@
 <script setup>
 import router from '@/router/index'
 import { ref } from 'vue'
+
+const menu = ref([
+  {
+    index:'/indexpage/indexpage',
+    item:'首页',
+    icon:'House',
+    children:[]
+  },
+  {
+    index:'',
+    item:'个人中心',
+    icon:'location',
+    children:[
+    {
+      index:'/user/updatepwd',
+      item:'修改密码',
+      icon:'Lock',
+    },{
+      index:'/user/info',
+      item:'用户详情',
+      icon:'User',
+    }
+    ]
+  }
+])
+//获取页头
+const menuname = ref('首页')
+const menuselect = (val) =>{
+  console.log(val);
+  // menu.value.find()
+  menu.value.forEach(item => {
+    if(item.index == val){
+      menuname.value = item.item
+      return;
+    }
+    if(item.children.length != 0){
+      item.children.forEach(i =>{
+         if(i.index == val){
+            menuname.value = i.item
+            return;
+          }
+      })
+    }
+  });
+}
 
 const username = ref('')
 import useUserinfoStore from '@/stores/userinfo'
