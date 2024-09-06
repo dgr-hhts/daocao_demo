@@ -1,2 +1,4 @@
-config\mybatisplus\MyMetaObjectHandler.class
-config\mybatisplus\MybatisPlusConfig.class
+com\daocao\config\interceptor\WebConfig.class
+com\daocao\config\interceptor\LoginInterceptor.class
+com\daocao\config\mybatisplus\MyMetaObjectHandler.class
+com\daocao\config\mybatisplus\MybatisPlusConfig.class

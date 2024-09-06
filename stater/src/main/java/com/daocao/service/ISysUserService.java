@@ -1,6 +1,7 @@
 package com.daocao.service;
 
 import com.daocao.dto.LoginDto;
+import com.daocao.dto.PageDto;
 import com.daocao.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.daocao.respose.ConResult;
@@ -20,4 +21,14 @@ public interface ISysUserService extends IService<SysUser> {
     ConResult UserList();
 
     ConResult UserInfo();
+
+    ConResult selectlist(PageDto pageDto);
+
+    ConResult AddUser(SysUser user);
+
+    ConResult UserInfoByid(Integer id);
+
+    ConResult UpdateUser(SysUser user);
+
+    ConResult DeleteUser(Integer id);
 }
