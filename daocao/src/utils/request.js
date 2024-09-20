@@ -34,13 +34,13 @@ request.interceptors.response.use((response)=>{
         return Promise.reject(msg);
     }else if(code == 201){
         ElMessage.error(msg)
-        window.sessionStorage.clear();
-        router.push('/login');
+        // window.sessionStorage.clear();
+        // router.push('/login');
         return Promise.reject(msg);
     }else{
         ElMessage.error("服务器错误！")
-        window.sessionStorage.clear();
-        router.push('/login');
+        // window.sessionStorage.clear();
+        // router.push('/login');
         return Promise.reject(msg);
     }
 },(error)=>{
@@ -48,8 +48,8 @@ request.interceptors.response.use((response)=>{
         ElMessage.error("未登录，请先登录!")
         router.push('/login');
     }
-    window.sessionStorage.clear();
-    router.push('/login');
+    // window.sessionStorage.clear();
+    // router.push('/login');
     return Promise.reject(error);
 })
 

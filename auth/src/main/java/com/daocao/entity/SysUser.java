@@ -7,6 +7,11 @@ import java.util.Date;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -26,11 +31,12 @@ public class SysUser implements Serializable {
      * 用户ID
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     /**
      * 用户账号
      */
+    @NotNull
     private String username;
 
     /**
@@ -41,6 +47,7 @@ public class SysUser implements Serializable {
     /**
      * 用户邮箱
      */
+    @Email(message = "邮箱格式错误")
     private String email;
 
     /**
@@ -51,6 +58,7 @@ public class SysUser implements Serializable {
     /**
      * 用户性别（0男 1女 2未知）
      */
+    @Range(min = 0, max = 2, message = "性别错误")
     private Integer sex;
 
     /**

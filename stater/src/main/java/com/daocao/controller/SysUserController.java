@@ -8,6 +8,7 @@ import com.daocao.respose.ConResult;
 import com.daocao.respose.Result;
 import com.daocao.service.impl.SysUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -44,7 +45,7 @@ public class SysUserController {
     }
 
     @PostMapping("/adduser")
-    public Result addUser(@RequestBody SysUser sysUser){
+    public Result addUser(@Validated @RequestBody SysUser sysUser){
         ConResult conResult = sysUserService.AddUser(sysUser);
         if(!conResult.getIsOk()){
             return new Result(201,conResult.getMsg());
@@ -59,7 +60,7 @@ public class SysUserController {
     }
 
     @PutMapping("/updateuser")
-    public Result updateUser(@RequestBody SysUser sysUser){
+    public Result updateUser(@Validated @RequestBody SysUser sysUser){
         ConResult conResult = sysUserService.UpdateUser(sysUser);
         if(!conResult.getIsOk()){
             return new Result(201,conResult.getMsg());
