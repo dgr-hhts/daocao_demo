@@ -24,9 +24,4 @@ public class AuthController {
         }
         return new Result(200,login.getMsg(),login.getData());
     }
-
-    @GetMapping("test")
-    public Result test(){
-        return new Result(200,"test");
-    }
 }

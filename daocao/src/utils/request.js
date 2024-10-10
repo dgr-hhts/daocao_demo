@@ -13,6 +13,8 @@ axios.defaults.headers['Content-Type'] = 'application/json?charset=UTF-8'
 //请求拦截器
 request.interceptors.request.use((config)=>{
     let tokenStore = useTokenStore()
+    console.log(tokenStore.token);
+    
     if(tokenStore.token){
         config.headers['Authorization'] = tokenStore.token;
     }

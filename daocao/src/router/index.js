@@ -4,6 +4,7 @@ import Index from '../views/index.vue'
 import UserInfo from '../views/user/info.vue'
 import UpdatePWD from '../views/user/updatepwd.vue'
 import IndexPage from '../views/indexpage/indexpage.vue'
+import File from '../views/user/file.vue'
 
 const constRouter = [
   //重定向
@@ -33,6 +34,9 @@ const constRouter = [
       {
         path :'/indexpage/indexpage',
         component: IndexPage
+      },{
+        path :'/user/file',
+        component: File
       }
     ]
   }
