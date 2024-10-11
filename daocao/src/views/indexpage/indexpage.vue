@@ -32,10 +32,10 @@
   </el-row>
   <el-row style="margin: 20px 20px;">
     <el-col :span = 2>
-      <el-button type="primary" @click="openAddUser()">添加用户信息</el-button>
+      <el-button type="primary" :icon="Plus" @click="openAddUser()">添加用户</el-button>
     </el-col>
     <el-col :span = 2>
-      <el-button type="primary" @click="exportuser()">导出</el-button>
+      <el-button type="danger" :icon="Upload " @click="exportuser()">导出用户</el-button>
     </el-col>
   </el-row>
   
@@ -155,7 +155,7 @@
 import { ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 const tableData = ref([])
-import { Calendar, Search, Delete, Plus } from '@element-plus/icons-vue'
+import { Calendar, Search, Delete, Plus, Upload } from '@element-plus/icons-vue'
 
 import { userlist, adduser, userinfobyid, updateuser, deleteuser } from '@/api/user/user'
 
