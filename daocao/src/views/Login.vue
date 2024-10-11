@@ -10,17 +10,13 @@
                     <el-input v-model="form.password" type="password" size="large" />
                 </el-form-item>
                 <el-form-item label="验证码">
-                <el-row>
-                    <el-col :span="12">
+                    <span>
                         <el-input v-model="form.code" size="large" />
-                    </el-col>
-                    <el-col :span="12">
-                        <img :src ="codeimage" style="width: 120px;height: 40px;" @click="newcode" />
-                    </el-col>
-                </el-row>
+                    </span>
+                    <img :src ="codeimage" style="width: 120px;height: 40px;" @click="newcode" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button class="but" type="primary" @click="loginmonthed">登录</el-button>
+                    <el-button class="but" type="primary" @click="loginmonthed" size="large" >登录</el-button>
                 </el-form-item>
             </el-form>   
         </div>
@@ -87,7 +83,8 @@ newcode()
             margin-bottom: 50px;
         }
         .but{
-            margin-left: 110px;
+            margin-left: 55px;
+            width: 320px;
         }
     }
 }

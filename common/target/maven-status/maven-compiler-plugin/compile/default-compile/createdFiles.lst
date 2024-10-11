@@ -1,6 +1,11 @@
+com\daocao\exception\GlobalExceptionHandler.class
+com\daocao\unils\RedisUtil.class
+com\daocao\respose\PageResult.class
+com\daocao\unils\ImageCode.class
 com\daocao\respose\Code.class
 com\daocao\exception\ServiceException.class
-com\daocao\unils\ThreadLocalUtil.class
+com\daocao\unils\AliOSSUtils.class
 com\daocao\respose\ConResult.class
+com\daocao\unils\ThreadLocalUtil.class
 com\daocao\respose\Result.class
 com\daocao\unils\JwtUtil.class

@@ -31,8 +31,11 @@
     </el-col>
   </el-row>
   <el-row style="margin: 20px 20px;">
-    <el-col>
+    <el-col :span = 2>
       <el-button type="primary" @click="openAddUser()">添加用户信息</el-button>
+    </el-col>
+    <el-col :span = 2>
+      <el-button type="primary" @click="exportuser()">导出</el-button>
     </el-col>
   </el-row>
   
@@ -155,6 +158,12 @@ const tableData = ref([])
 import { Calendar, Search, Delete, Plus } from '@element-plus/icons-vue'
 
 import { userlist, adduser, userinfobyid, updateuser, deleteuser } from '@/api/user/user'
+
+// 导出
+const exportuser = () =>{
+  window.location.href = `http://localhost:5173/api/sysUser/export`
+}
+
 
 const total = ref()
 
