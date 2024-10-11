@@ -40,18 +40,19 @@ request.interceptors.response.use((response)=>{
         // router.push('/login');
         return Promise.reject(msg);
     }else{
-        ElMessage.error("服务器错误！")
-        // window.sessionStorage.clear();
-        // router.push('/login');
-        return Promise.reject(msg);
+        // ElMessage.error("服务器错误！")
+        // // window.sessionStorage.clear();
+        // // router.push('/login');
+        // return Promise.reject(msg);
+        return response.data;
     }
 },(error)=>{
     if(error.response.status == 401){
         ElMessage.error("未登录，请先登录!")
         router.push('/login');
     }
-    // window.sessionStorage.clear();
-    // router.push('/login');
+    window.sessionStorage.clear();
+    router.push('/login');
     return Promise.reject(error);
 })
 

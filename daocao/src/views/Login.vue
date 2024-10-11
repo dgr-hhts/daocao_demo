@@ -4,10 +4,20 @@
             <h3 class="title">稻草管理平台</h3>
             <el-form :model="form" label-width="auto">
                 <el-form-item label="用户名">
-                  <el-input v-model="form.account"  />
+                  <el-input v-model="form.account" size="large" />
                 </el-form-item>
                 <el-form-item label="密码">
-                    <el-input v-model="form.password" type="password" />
+                    <el-input v-model="form.password" type="password" size="large" />
+                </el-form-item>
+                <el-form-item label="验证码">
+                <el-row>
+                    <el-col :span="12">
+                        <el-input v-model="form.code" size="large" />
+                    </el-col>
+                    <el-col :span="12">
+                        <img :src ="codeimage" style="width: 120px;height: 40px;" @click="newcode" />
+                    </el-col>
+                </el-row>
                 </el-form-item>
                 <el-form-item>
                     <el-button class="but" type="primary" @click="loginmonthed">登录</el-button>
@@ -26,10 +36,11 @@ import { ref } from 'vue'
 
 const form = ref({
     account:'',
-    password:''
+    password:'',
+    code:''
 })
 
-import { login } from '@/api/auth/index'
+import { login, getcode } from '@/api/auth/index'
 const loginmonthed = async()=>{
     await login(form.value).then(res=>{
         if(res.code == 200){
@@ -41,10 +52,19 @@ const loginmonthed = async()=>{
             ElMessage.error("登录失败")
         }
     });
-    
-    
-    
 }
+
+const codeimage = ref('')
+
+const newcode = async()=>{
+    await getcode().then(res=>{
+        console.log(res);
+        
+        codeimage.value = window.URL.createObjectURL(res)
+    })
+}
+newcode()
+
 </script>
 
 <style lang="scss" scoped>
