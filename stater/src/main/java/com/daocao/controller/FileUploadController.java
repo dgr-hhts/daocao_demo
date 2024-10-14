@@ -38,8 +38,8 @@ public class FileUploadController {
         return new Result(200,"上传成功",url);
     }
 
-    @GetMapping("code")
-    public void test(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @GetMapping("/code")
+    public void test(HttpServletResponse response) throws IOException {
         ImageCode imagecode=new ImageCode();//图形验证码工具类
         BufferedImage img=imagecode.getImage();
         try {

@@ -14,6 +14,7 @@ import com.daocao.respose.PageResult;
 import com.daocao.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.daocao.unils.JwtUtil;
+import com.daocao.unils.RedisUtil;
 import com.daocao.unils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
         if(!(sysUser.getPassword().equals(loginDto.getPassword()))){
             return new ConResult(false,"密码不正确");
         }
+        if(sysUser.getStatus() == 1){
+            return new ConResult(false,"该用户已被停用！");
+        }
 
         Map<String,Object> claims = new HashMap<>();
         claims.put("id",sysUser.getId());
@@ -71,6 +75,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     @Override
     public ConResult UserInfo() {
         Map<String,Object> map = ThreadLocalUtil.get();
+        System.err.println(map);
         String username = (String)map.get("username");
         LambdaQueryWrapper<SysUser> query = new LambdaQueryWrapper<>();
         query.eq(SysUser::getUsername,username);

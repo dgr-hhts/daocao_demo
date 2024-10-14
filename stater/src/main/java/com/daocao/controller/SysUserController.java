@@ -96,5 +96,12 @@ public class SysUserController {
         }
         ExcelUtils.export(response, "用户表", list, SysUser.class);
     }
+
+    @GetMapping("/test")
+    public Result test(HttpServletResponse response){
+        List<SysUser> list = sysUserService.list();
+        response.setContentType("application/json;charset=UTF-8");
+        return new Result(200,"dgr",list);
+    }
 }
 

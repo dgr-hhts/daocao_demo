@@ -7,7 +7,7 @@ spring:
   redis:
     host: localhost
     port: 6379
-    password: "05171021"
+#    password: 05171021
     database: 1
     lettuce:
       pool:
